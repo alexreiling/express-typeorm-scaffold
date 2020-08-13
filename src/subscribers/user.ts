@@ -1,8 +1,9 @@
 import { Container } from 'typedi';
 import { EventSubscriber, On } from 'event-dispatch';
 import events from './events';
-import { IUser } from '../interfaces/IUser';
-import mongoose from 'mongoose';
+import { User } from 'src/model/User';
+import { Logger } from 'winston';
+import { json } from 'express';
 
 @EventSubscriber()
 export default class UserSubscriber {
@@ -16,25 +17,25 @@ export default class UserSubscriber {
    * Use another approach like emit events to a queue (rabbitmq/aws sqs),
    * then save the latest in Redis/Memcache or something similar
    */
-  @On(events.user.signIn)
-  public onUserSignIn({ _id }: Partial<IUser>) {
-    const Logger = Container.get('logger');
+  @On(events.user.login)
+  public onUserLogin({ id }: Partial<User>) {
+    const Logger = Container.get<Logger>('logger');
+    Logger.debug('user logged in');
+    // try {
+    //   const UserModel = Container.get('UserModel') as mongoose.Model<IUser & mongoose.Document>;
 
-    try {
-      const UserModel = Container.get('UserModel') as mongoose.Model<IUser & mongoose.Document>;
+    //   UserModel.update({ _id }, { $set: { lastLogin: new Date() } });
+    // } catch (e) {
+    //   Logger.error(`🔥 Error on event ${events.user.signIn}: %o`, e);
 
-      UserModel.update({ _id }, { $set: { lastLogin: new Date() } });
-    } catch (e) {
-      Logger.error(`🔥 Error on event ${events.user.signIn}: %o`, e);
-
-      // Throw the error so the process die (check src/app.ts)
-      throw e;
-    }
+    //   // Throw the error so the process die (check src/app.ts)
+    //   throw e;
+    // }
   }
-  @On(events.user.signUp)
-  public onUserSignUp({ name, email, _id }: Partial<IUser>) {
-    const Logger = Container.get('logger');
-
+  @On(events.user.register)
+  public onUserSignUp(user: Partial<User>) {
+    const Logger = Container.get<Logger>('logger');
+    Logger.debug('new user registered ', JSON.stringify(user));
     try {
       /**
        * @TODO implement this
@@ -45,7 +46,7 @@ export default class UserSubscriber {
       // Start your email sequence or whatever
       // MailService.startSequence('user.welcome', { email, name })
     } catch (e) {
-      Logger.error(`🔥 Error on event ${events.user.signUp}: %o`, e);
+      Logger.error(`🔥 Error on event ${events.user.register}: %o`, e);
 
       // Throw the error so the process dies (check src/app.ts)
       throw e;

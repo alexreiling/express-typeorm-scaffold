@@ -1,13 +1,14 @@
-import { Document, Model } from 'mongoose';
-import { IUser } from '../../interfaces/IUser';
+import { User } from '../../model/User';
+import { AccessTokenPayload } from 'src/services/auth';
 declare global {
   namespace Express {
     export interface Request {
-      currentUser: IUser & Document;
-    }    
+      currentUser: User;
+      accessTokenPayload?: AccessTokenPayload;
+    }
   }
 
   namespace Models {
-    export type UserModel = Model<IUser & Document>;
+    export type UserModel = User;
   }
 }

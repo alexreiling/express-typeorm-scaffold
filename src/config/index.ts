@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-
 // Set the NODE_ENV to 'development' by default
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -9,22 +8,18 @@ if (envFound.error) {
 
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
-
 export default {
   /**
    * Your favorite port
    */
-  port: parseInt(process.env.PORT, 10),
+  port: parseInt(process.env.PORT!, 10),
 
-  /**
-   * That long string from mlab
-   */
-  databaseURL: process.env.MONGODB_URI,
+  mongoURI: process.env.MONGODB_URI,
 
-  /**
-   * Your secret sauce
-   */
-  jwtSecret: process.env.JWT_SECRET,
+  typeormURI: process.env.TYPEORM_URI,
+
+  accessTokenSecret: process.env.ACCESS_TOKEN_SECRET,
+  refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET,
 
   /**
    * Used by winston logger
@@ -39,7 +34,7 @@ export default {
   agenda: {
     dbCollection: process.env.AGENDA_DB_COLLECTION,
     pooltime: process.env.AGENDA_POOL_TIME,
-    concurrency: parseInt(process.env.AGENDA_CONCURRENCY, 10),
+    concurrency: parseInt(process.env.AGENDA_CONCURRENCY!, 10),
   },
 
   /**
@@ -47,7 +42,7 @@ export default {
    */
   agendash: {
     user: 'agendash',
-    password: '123456'
+    password: '123456',
   },
   /**
    * API configs
@@ -55,11 +50,11 @@ export default {
   api: {
     prefix: '/api',
   },
-  /**
-   * Mailgun email credentials
-   */
-  emails: {
-    apiKey: process.env.MAILGUN_API_KEY,
-    domain: process.env.MAILGUN_DOMAIN
-  }
+  // /**
+  //  * Mailgun email credentials
+  //  */
+  // emails: {
+  //   apiKey: process.env.MAILGUN_API_KEY,
+  //   domain: process.env.MAILGUN_DOMAIN,
+  // },
 };

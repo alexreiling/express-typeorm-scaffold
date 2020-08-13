@@ -1,28 +1,26 @@
 import { Service, Inject } from 'typedi';
-import { IUser } from '../interfaces/IUser';
+import { User } from '../model/User';
 
 @Service()
 export default class MailerService {
-  constructor(
-    @Inject('emailClient') private emailClient
-  ) { }
+  constructor(@Inject('emailClient') private emailClient: any) {}
 
-  public async SendWelcomeEmail(email) {
+  public async SendWelcomeEmail(userOrEmail: User | string) {
     /**
      * @TODO Call Mailchimp/Sendgrid or whatever
      */
     // Added example for sending mail from mailgun
     const data = {
       from: 'Excited User <me@samples.mailgun.org>',
-      to: email, //your email address
+      to: typeof userOrEmail === 'string' ? userOrEmail : userOrEmail.email, //your email address
       subject: 'Hello',
-      text: 'Testing some Mailgun awesomness!'
+      text: 'Testing some Mailgun awesomness!',
     };
 
     this.emailClient.messages().send(data);
     return { delivered: 1, status: 'ok' };
   }
-  public StartEmailSequence(sequence: string, user: Partial<IUser>) {
+  public StartEmailSequence(_sequence: string, user: Partial<User>) {
     if (!user.email) {
       throw new Error('No email provided');
     }

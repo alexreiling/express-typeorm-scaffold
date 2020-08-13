@@ -25,8 +25,8 @@ const getTokenFromHeader = req => {
 };
 
 const isAuth = jwt({
-  secret: config.jwtSecret, // The _secret_ to sign the JWTs
-  userProperty: 'token', // Use req.token to store the JWT
+  secret: config.accessTokenSecret!, // The _secret_ to sign the JWTs
+  userProperty: 'accessTokenPayload', // Use req.token to store the JWT
   getToken: getTokenFromHeader, // How to extract the JWT from the request
 });
 

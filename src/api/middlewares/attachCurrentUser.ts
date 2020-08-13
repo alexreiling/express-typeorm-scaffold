@@ -1,24 +1,20 @@
 import { Container } from 'typedi';
-import mongoose from 'mongoose';
-import { IUser } from '../../interfaces/IUser';
+import { Logger } from 'winston';
+import { Handler } from 'express';
+import {} from 'typeorm-typedi-extensions';
+import { User } from '../../model/User';
 
-/**
- * Attach user to req.currentUser
- * @param {*} req Express req Object
- * @param {*} res  Express res Object
- * @param {*} next  Express next Function
- */
-const attachCurrentUser = async (req, res, next) => {
-  const Logger = Container.get('logger');
+const attachCurrentUser: Handler = async (req, res, next) => {
+  const Logger = Container.get<Logger>('logger');
   try {
-    const UserModel = Container.get('userModel') as mongoose.Model<IUser & mongoose.Document>;
-    const userRecord = await UserModel.findById(req.token._id);
-    if (!userRecord) {
+    // TODO: inject
+    // TODO: remove password
+    const user = await User.findOne(req.accessTokenPayload!.userId);
+    if (!user) {
       return res.sendStatus(401);
     }
-    const currentUser = userRecord.toObject();
+    const currentUser = user;
     Reflect.deleteProperty(currentUser, 'password');
-    Reflect.deleteProperty(currentUser, 'salt');
     req.currentUser = currentUser;
     return next();
   } catch (e) {

@@ -71,7 +71,7 @@ route.post(
 - [ ] setup CI/CD
 - [x] polish up logging with winston
 - [ ] write tests
-- [ ] check if user exists upon registration
+- [x] check if user exists upon registration
 - [ ] implement verify-token endpoint to be used in microservice architecture
 - [ ] make feature initilization modular (e.g.: mailing, agenda)
 - [ ] add dependency injection for typeORM repositories in services

@@ -37,7 +37,6 @@
   "author": "Santiago Quinteros",
   "license": "ISC",
   "dependencies": {
-    "@types/validator": "^13.1.0",
     "agenda": "^2.0.2",
     "agendash": "^1.0.0",
     "bcryptjs": "^2.4.3",
@@ -81,6 +80,7 @@
     "@types/lodash": "^4.14.118",
     "@types/mongodb": "^3.5.25",
     "@types/node": "^10.14.8",
+    "@types/validator": "^13.1.0",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
     "@typescript-eslint/parser": "^1.7.0",
     "eslint": "^5.16.0",

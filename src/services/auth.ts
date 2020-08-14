@@ -6,6 +6,7 @@ import events from '../subscribers/events';
 import { User } from '../model/User';
 import { hash, compare } from 'bcryptjs';
 import { Repository, getConnection } from 'typeorm';
+import validator from 'validator';
 
 // TODO: move interfaces
 export interface Credentials {
@@ -34,8 +35,15 @@ export default class AuthService {
 
   public async Register(credentials: Credentials): Promise<{ user: User }> {
     try {
+      let isEmail = validator.isEmail(credentials.email);
+      if (!isEmail) throw new Error(`registration error: ${credentials.email} is no valid email`);
+
+      let existingUser = await User.findOne({ where: { email: credentials.email } });
+      if (existingUser) throw new Error(`registration error: user with email ${credentials.email} already exists`);
+
       this.logger.silly('Hashing password');
       const hashed = await hash(credentials.password, 12);
+
       this.logger.silly('Creating user db record');
       let { generatedMaps } = await User.insert({
         email: credentials.email,
@@ -43,7 +51,7 @@ export default class AuthService {
       });
       let user = generatedMaps[0] as User;
 
-      this.logger.silly('Sending welcome email');
+      //this.logger.silly('Sending welcome email');
       //await this.mailer.SendWelcomeEmail(user);
 
       this.eventDispatcher.dispatch(events.user.register, { user });

@@ -8,13 +8,14 @@ import { Connection } from 'typeorm';
 import { User } from '../model/User';
 
 //export default ({ mongoConnection, models }: { mongoConnection: Db; models: { name: string; model: any }[] }) => {
-export default ({ mongoConnection, typeormConnection }: { mongoConnection: Db; typeormConnection: Connection }) => {
+export default ({ mongoDatabase, typeormConnection }: { mongoDatabase: Db; typeormConnection: Connection }) => {
   try {
     // models.forEach(m => {
     //   Container.set(m.name, m.model);
     // });
 
-    const agendaInstance = agendaFactory({ mongoConnection });
+    const agendaInstance = agendaFactory({ mongoDatabase });
+    LoggerInstance.info('✌️ Agenda instance created');
 
     Container.set('agendaInstance', agendaInstance);
     Container.set('logger', LoggerInstance);

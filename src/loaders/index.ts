@@ -10,16 +10,15 @@ import mongoDbLoader from './mongodb';
 
 export default async ({ expressApp }: { expressApp: Application }) => {
   // set DB connections
-
-  const [mongoConnection, typeormConnection] = await Promise.all([
-    mongoDbLoader().then(async conn => {
+  const [mongoDatabase, typeormConnection] = await Promise.all([
+    mongoDbLoader().then(conn => {
       Logger.info('✌️ MongoDB loaded and connected!');
       return conn;
     }),
     typeormLoader().then(conn => {
       Logger.info('✌️ Typeorm DB loaded and connected!');
       return conn;
-    }),
+    })
   ]);
 
   // /**
@@ -37,9 +36,10 @@ export default async ({ expressApp }: { expressApp: Application }) => {
   // };
 
   // It returns the agenda instance because it's needed in the subsequent loaders
+
   const { agenda } = await dependencyInjectorLoader({
-    mongoConnection,
-    typeormConnection,
+    mongoDatabase,
+    typeormConnection
   });
   Logger.info('✌️ Dependency Injector loaded');
 

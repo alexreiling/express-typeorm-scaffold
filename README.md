@@ -62,6 +62,21 @@ It uses nodemon for livereloading :peace-fingers:
 
 [Read more about celebrate here](https://github.com/arb/celebrate) and [the Joi validation API](https://github.com/hapijs/joi/blob/v15.0.1/API.md)
 
+# TODO
+- [ ] unify config: typeorm, mongodb, nodeenv => config.ts
+- [ ] setup CI/CD
+- [ ] polish up logging with winston
+- [ ] restore bash coloring for logs in VS Code
+- [ ] write tests
+- [ ] check if user exists upon registration
+- [ ] implement verify-token endpoint to be used in microservice architecture
+- [ ] make feature initilization modular (e.g.: mailing, agenda)
+- [ ] add dependency injection for typeORM repositories in services
+- [ ] adjust readme
+- [ ] clean up repository files
+
+
+
 # Roadmap
 - [x] API Validation layer (Celebrate+Joi)
 - [ ] Unit tests examples
@@ -72,24 +87,3 @@ It uses nodemon for livereloading :peace-fingers:
 - [ ] Deploys script and docs for AWS Elastic Beanstalk and Heroku
 - [ ] Integration test with newman 😉
 - [ ] Instructions on typescript debugging with VSCode
-
-
-# FAQ 
-
- ## Where should I put the FrontEnd code? Is this a good backend for Angular or React or Vue or _whatever_ ?
-
-  [It's not a good idea to have node.js serving static assets a.k.a the frontend](https://softwareontheroad.com/nodejs-scalability-issues?utm_source=github&utm_medium=readme)
-
-  Also, I don't wanna take part in frontend frameworks wars 😅
-
-  Just use the frontend framework you like the most _or hate the least_. It will work 😁
-
- ## Don't you think you can add X layer to do Y? Why do you still use express if the Serverless Framework is better and it's more reliable?
-
-  I know this is not a perfect architecture but it's the most scalable that I know with less code and headache that I know.
-
-  It's meant for small startups or one-developer army projects.
-
-  I know if you start moving layers into another technology, you will end up with your business/domain logic into npm packages, your routing layer will be pure AWS Lambda functions and your data layer a combination of DynamoDB, Redis, maybe redshift, and Agolia.
-
-  Take a deep breath and go slowly, let the business grow and then scale up your product. You will need a team and talented developers anyway.

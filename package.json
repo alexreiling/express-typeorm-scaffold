@@ -6,7 +6,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "tsc && lint-staged",
-      "pre-push": "tsc && lint-staged"
+      "pre-push": "lint-staged"
     }
   },
   "scripts": {

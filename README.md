@@ -77,7 +77,7 @@ route.post(
 - [ ] add dependency injection for typeORM repositories in services
 - [ ] adjust readme
 - [x] clean up repository files
-- [ ] prevent committing code that doesn't compile using pre hooks and tsc
+- [x] prevent committing code that doesn't compile using pre hooks and tsc (with husky, lint-staged, prettier and tsc)
 
 # Roadmap
 

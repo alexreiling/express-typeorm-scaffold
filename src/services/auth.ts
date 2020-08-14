@@ -74,7 +74,6 @@ export default class AuthService {
   }
 
   public async Logout(userId: number): Promise<boolean> {
-    // TODO: IOD
     await getConnection()
       .getRepository(User)
       .increment({ id: userId }, 'tokenVersion', 1);

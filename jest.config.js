@@ -63,11 +63,7 @@ module.exports = {
   // ],
 
   // An array of file extensions your modules use
-  moduleFileExtensions: [
-    'js',
-    'ts',
-    'json'
-  ],
+  moduleFileExtensions: ['js', 'ts', 'json'],
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   // moduleNameMapper: {},
@@ -134,7 +130,7 @@ module.exports = {
   // The glob patterns Jest uses to detect test files
   testMatch: [
     // '**/?(*.)+(spec|test).js?(x)',
-    '**/?(*.)+(spec|test).ts?(x)',
+    '**/?(*.)+(spec|test).ts?(x)'
   ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
@@ -159,8 +155,8 @@ module.exports = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.ts?$': 'ts-jest',
-  },
+    '^.+\\.ts?$': 'ts-jest'
+  }
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [

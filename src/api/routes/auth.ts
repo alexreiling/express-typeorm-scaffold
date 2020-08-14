@@ -15,8 +15,8 @@ export default (app: Router) => {
     celebrate({
       body: Joi.object({
         email: Joi.string().required(),
-        password: Joi.string().required(),
-      }),
+        password: Joi.string().required()
+      })
     }),
     async (req: Request, res: Response, next: NextFunction) => {
       const logger = Container.get<Logger>('logger');
@@ -29,7 +29,7 @@ export default (app: Router) => {
         logger.error('🔥 error: %o', e);
         return next(e);
       }
-    },
+    }
   );
 
   route.post(
@@ -37,8 +37,8 @@ export default (app: Router) => {
     celebrate({
       body: Joi.object({
         email: Joi.string().required(),
-        password: Joi.string().required(),
-      }),
+        password: Joi.string().required()
+      })
     }),
     async (req: Request, res: Response, next: NextFunction) => {
       const logger = Container.get<Logger>('logger');
@@ -54,7 +54,7 @@ export default (app: Router) => {
         logger.error('🔥 error: %o', e);
         return next(e);
       }
-    },
+    }
   );
 
   /**
@@ -87,6 +87,6 @@ const sendRefreshToken = (res: Response, token: string) => {
   res.cookie('jid', token, {
     httpOnly: true,
     expires: date,
-    path: '/refresh_token',
+    path: '/refresh_token'
   });
 };

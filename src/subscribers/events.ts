@@ -1,6 +1,6 @@
 export default {
   user: {
     register: 'onUserRegister',
-    login: 'onUserLogin',
-  },
+    login: 'onUserLogin'
+  }
 };

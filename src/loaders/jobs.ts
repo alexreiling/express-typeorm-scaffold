@@ -7,7 +7,7 @@ export default ({ agenda }: { agenda: Agenda }) => {
     'send-email',
     { priority: 'high', concurrency: config.agenda.concurrency },
     // @TODO Could this be a static method? Would it be better?
-    new EmailSequenceJob().handler,
+    new EmailSequenceJob().handler
   );
 
   agenda.start();

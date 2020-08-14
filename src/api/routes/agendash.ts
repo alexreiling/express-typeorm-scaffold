@@ -11,10 +11,10 @@ export default (app: Router) => {
     '/dash',
     basicAuth({
       users: {
-        [config.agendash.user]: config.agendash.password,
+        [config.agendash.user]: config.agendash.password
       },
-      challenge: true,
+      challenge: true
     }),
-    agendash(agendaInstance),
+    agendash(agendaInstance)
   );
 };

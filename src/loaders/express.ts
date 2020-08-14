@@ -53,7 +53,7 @@ export default ({ app }: { app: Application }) => {
      */
     if (err.name === 'UnauthorizedError') {
       Container.get<Logger>('logger').warn('Unauthorized access', {
-        ip: req.ip,
+        ip: req.ip
       });
       return res
         .status(err.status)
@@ -72,8 +72,8 @@ export default ({ app }: { app: Application }) => {
     res.status(err.status || 500);
     res.json({
       errors: {
-        message: err.message,
-      },
+        message: err.message
+      }
     });
   }) as ErrorRequestHandler);
 };

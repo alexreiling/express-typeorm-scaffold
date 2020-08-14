@@ -29,7 +29,7 @@ export default class AuthService {
     @Inject('userRepo') private userRepo: Repository<User>,
     //private mailer: MailerService,
     @Inject('logger') private logger: any,
-    @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
+    @EventDispatcher() private eventDispatcher: EventDispatcherInterface
   ) {}
 
   public async Register(credentials: Credentials): Promise<{ user: User }> {
@@ -39,7 +39,7 @@ export default class AuthService {
       this.logger.silly('Creating user db record');
       let { generatedMaps } = await User.insert({
         email: credentials.email,
-        password: hashed,
+        password: hashed
       });
       let user = generatedMaps[0] as User;
 
@@ -83,12 +83,12 @@ export default class AuthService {
 
   private createAccessToken = (user: User) => {
     return sign({ userId: user.id, email: user.email } as AccessTokenPayload, config.accessTokenSecret!, {
-      expiresIn: '15m',
+      expiresIn: '15m'
     });
   };
   private createRefreshToken = (user: User) => {
     return sign({ userId: user.id, tokenVersion: user.tokenVersion }, config.refreshTokenSecret!, {
-      expiresIn: '7d',
+      expiresIn: '7d'
     });
   };
 }

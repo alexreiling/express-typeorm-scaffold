@@ -14,7 +14,7 @@ export default class MailerService {
       from: 'Excited User <me@samples.mailgun.org>',
       to: typeof userOrEmail === 'string' ? userOrEmail : userOrEmail.email, //your email address
       subject: 'Hello',
-      text: 'Testing some Mailgun awesomness!',
+      text: 'Testing some Mailgun awesomness!'
     };
 
     this.emailClient.messages().send(data);

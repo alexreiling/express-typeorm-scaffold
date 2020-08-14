@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "Bulletproof node.js",
   "main": "src/app.ts",
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsc && lint-staged",
+      "pre-push": "tsc && lint-staged"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "heroku-postbuild": "npm run build",
@@ -45,7 +51,9 @@
     "express": "^4.16.2",
     "express-basic-auth": "^1.2.0",
     "express-jwt": "^5.3.1",
+    "husky": "^4.2.5",
     "jsonwebtoken": "^8.2.0",
+    "lint-staged": "^10.2.11",
     "lodash": "^4.17.20",
     "mailgun-js": "^0.22.0",
     "method-override": "^3.0.0",
@@ -80,7 +88,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "jest": "^24.1.0",
     "nodemon": "^2.0.4",
-    "prettier": "^1.17.0",
+    "prettier": "^1.19.1",
     "ts-jest": "^24.0.0",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",

@@ -1,6 +1,5 @@
 import { Service, Inject } from 'typedi';
 import { sign } from 'jsonwebtoken';
-import MailerService from './mailer';
 import config from '../config';
 import { EventDispatcher, EventDispatcherInterface } from '../decorators/eventDispatcher';
 import events from '../subscribers/events';

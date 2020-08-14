@@ -3,7 +3,6 @@ import { EventSubscriber, On } from 'event-dispatch';
 import events from './events';
 import { User } from 'src/model/User';
 import { Logger } from 'winston';
-import { json } from 'express';
 
 @EventSubscriber()
 export default class UserSubscriber {
@@ -20,7 +19,7 @@ export default class UserSubscriber {
   @On(events.user.login)
   public onUserLogin({ id }: Partial<User>) {
     const Logger = Container.get<Logger>('logger');
-    Logger.debug('user logged in');
+    Logger.debug('user logged in with id: ' + id);
     // try {
     //   const UserModel = Container.get('UserModel') as mongoose.Model<IUser & mongoose.Document>;
 

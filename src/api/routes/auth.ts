@@ -16,7 +16,7 @@ export default (app: Router) => {
       body: Joi.object({
         email: Joi.string().required(),
         password: Joi.string().required(),
-      } as Credentials),
+      }),
     }),
     async (req: Request, res: Response, next: NextFunction) => {
       const logger = Container.get<Logger>('logger');
@@ -38,7 +38,7 @@ export default (app: Router) => {
       body: Joi.object({
         email: Joi.string().required(),
         password: Joi.string().required(),
-      } as Credentials),
+      }),
     }),
     async (req: Request, res: Response, next: NextFunction) => {
       const logger = Container.get<Logger>('logger');

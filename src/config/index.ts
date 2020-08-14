@@ -24,6 +24,7 @@ export default {
   /**
    * Used by winston logger
    */
+  // TODO: add type safety and checks
   logs: {
     level: process.env.LOG_LEVEL || 'silly',
   },

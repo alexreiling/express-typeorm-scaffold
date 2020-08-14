@@ -3,6 +3,8 @@ import cors from 'cors';
 import routes from '../api';
 import config from '../config';
 import { RequestHandler, Application, ErrorRequestHandler } from 'express';
+import Container from 'typedi';
+import { Logger } from 'winston';
 
 export default ({ app }: { app: Application }) => {
   /**
@@ -40,18 +42,19 @@ export default ({ app }: { app: Application }) => {
   app.use(config.api.prefix, routes());
 
   /// catch 404 and forward to error handler
-  app.use((_req, _res, next) => {
-    const err = new Error('Not Found') as any;
-    err['status'] = 404;
-    next(err);
+  app.use((_req, res, _next) => {
+    res.status(404).send("Sorry can't find that!");
   });
 
   /// error handlers
-  app.use(((err, _req, res, next) => {
+  app.use(((err, req, res, next) => {
     /**
      * Handle 401 thrown by express-jwt library
      */
     if (err.name === 'UnauthorizedError') {
+      Container.get<Logger>('logger').warn('Unauthorized access', {
+        ip: req.ip,
+      });
       return res
         .status(err.status)
         .send({ message: err.message })
@@ -59,7 +62,13 @@ export default ({ app }: { app: Application }) => {
     }
     return next(err);
   }) as ErrorRequestHandler);
-  app.use(((err, _req, res) => {
+
+  // default error handler
+  // IMPORTANT: if 4th parameter (_next) is not specified the handler won't be registered as custom error handler
+  app.use(((err, _req, res, _next) => {
+    const logger = Container.get<Logger>('logger');
+
+    logger.error('Unhandled exception', err);
     res.status(err.status || 500);
     res.json({
       errors: {

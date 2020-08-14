@@ -5,10 +5,9 @@ import agendash from './routes/agendash';
 
 // guaranteed to get dependencies
 export default () => {
-	const app = Router();
-	auth(app);
-	user(app);
-	agendash(app);
-
-	return app
-}
+  const app = Router();
+  auth(app);
+  user(app);
+  agendash(app);
+  return app;
+};
